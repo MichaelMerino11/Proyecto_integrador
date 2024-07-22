@@ -1,0 +1,20 @@
+/* Login Component Styles */
+.container {
+    max-width: 400px;
+    margin: 50px auto;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .input-field {
+    margin-bottom: 20px;
+  }
+  
+  .error {
+    color: red;
+    text-align: center;
+  }
+  

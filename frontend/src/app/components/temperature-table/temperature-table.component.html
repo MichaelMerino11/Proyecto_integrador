@@ -1,0 +1,31 @@
+<!-- temperature-table.component.html -->
+<nav>
+  <div class="nav-wrapper">
+    <a routerLink="/" class="brand-logo"><img src="assets/logo.png" alt="Logo" class="logo"></a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a routerLink="/about">Sobre Nosotros</a></li>
+      <li><a routerLink="/instrumentation">Instrumentación</a></li>
+      <li><a routerLink="/contact">Contacto</a></li>
+      <li><a (click)="logout()"><img src="assets/logout.png" alt="Logout" class="icon"></a></li>
+    </ul>
+  </div>
+</nav>
+<div class="container">
+  <h2>Registro de Temperaturas</h2>
+  <table class="striped">
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Humedad (%)</th>
+        <th>Temperatura (°C)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let temp of temperatures">
+        <td>{{ temp.fecha }}</td>
+        <td>{{ temp.humedad }}</td>
+        <td>{{ temp.temperatura }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

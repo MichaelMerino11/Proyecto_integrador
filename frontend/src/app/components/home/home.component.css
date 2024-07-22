@@ -1,0 +1,15 @@
+/* Home Component Styles */
+.container {
+    margin: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .btn-large {
+    display: block;
+    margin: 20px auto;
+  }
+  
