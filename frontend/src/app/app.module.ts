@@ -12,6 +12,8 @@ import { AboutComponent } from './components/about/about.component';
 import { InstrumentationComponent } from './components/instrumentation/instrumentation.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { RouterModule } from '@angular/router';
+import { AdminComponent } from './components/admin/admin.component';
+import { OperatorComponent } from './components/operator/operator.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { RouterModule } from '@angular/router';
     FooterComponent,
     AboutComponent,
     InstrumentationComponent,
-    ContactComponent
+    ContactComponent,
+    AdminComponent,
+    OperatorComponent
   ],
   imports: [
     BrowserModule,
