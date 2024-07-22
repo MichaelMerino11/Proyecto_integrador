@@ -1,0 +1,16 @@
+
+<a class="waves-effect waves-light btn" routerLink="/operator/profile">Menu</a>
+
+<div class="upload-container">
+    <h2>Subir archivo JSON</h2>
+    <input type="file" (change)="onFileSelected($event)" accept=".json" />
+    <button (click)="onUpload()">Subir</button>
+  
+    <div *ngIf="uploadSuccess" class="success-message">
+      {{ uploadSuccess }}
+    </div>
+  
+    <div *ngIf="uploadError" class="error-message">
+      {{ uploadError }}
+    </div>
+  </div>

@@ -1,6 +1,5 @@
-// user.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -11,27 +10,36 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('authToken');
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  }
+
   getUsers(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}`);
+    return this.http.get<any>(`${this.baseUrl}`, { headers: this.getAuthHeaders() });
   }
 
   addUser(user: any): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}`, user);
+    return this.http.post<any>(`${this.baseUrl}`, user, { headers: this.getAuthHeaders() });
   }
 
   deleteUser(id: string): Observable<any> {
-    return this.http.delete<any>(`${this.baseUrl}/${id}`);
+    return this.http.delete<any>(`${this.baseUrl}/${id}`, { headers: this.getAuthHeaders() });
   }
 
   updateUser(user: any): Observable<any> {
-    return this.http.put<any>(`${this.baseUrl}/${user.id}`, user);
+    return this.http.put<any>(`${this.baseUrl}/${user.id}`, user, { headers: this.getAuthHeaders() });
   }
 
   getUser(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/me`);
+    return this.http.get<any>(`${this.baseUrl}/me`, { headers: this.getAuthHeaders() });
   }
 
-  updatePassword(newPassword: string): Observable<any> {
-    return this.http.put<any>(`${this.baseUrl}/password`, { password: newPassword });
-  }
+ // user.service.ts
+updatePassword(newPassword: string): Observable<any> {
+  return this.http.put<any>(`${this.baseUrl}/password`, { password: newPassword }, { headers: this.getAuthHeaders() });
+}
+
 }

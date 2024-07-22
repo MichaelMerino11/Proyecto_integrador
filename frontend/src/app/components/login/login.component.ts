@@ -18,7 +18,7 @@ export class LoginComponent {
     this.authService.login(this.email, this.password).subscribe(
       response => {
         localStorage.setItem('token', response.token);
-        this.router.navigate(['/temperatures']);
+        localStorage.setItem('authToken', response.token);
       },
       error => {
         this.error = 'Credenciales incorrectas';

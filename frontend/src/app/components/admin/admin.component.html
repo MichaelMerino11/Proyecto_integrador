@@ -1,40 +1,39 @@
 <!-- admin.component.html -->
 <nav>
-    <div class="nav-wrapper">
-      <a routerLink="/" class="brand-logo"><img src="assets/logo.png" alt="Logo" class="logo"></a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a routerLink="/about">Sobre Nosotros</a></li>
-        <li><a routerLink="/instrumentation">Instrumentación</a></li>
-        <li><a routerLink="/contact">Contacto</a></li>
-        <li><a (click)="logout()"><img src="assets/logout.png" alt="Logout" class="icon"></a></li>
-      </ul>
-    </div>
-  </nav>
-  <div class="container">
-    <h2>Administrar Usuarios</h2>
-    <table class="striped">
-      <thead>
-        <tr>
-          <th>Email</th>
-          <th>Rol</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of users">
-          <td>{{ user.email }}</td>
-          <td>{{ user.role }}</td>
-          <td>
-            <button (click)="updateUser(user)">Modificar</button>
-            <button (click)="deleteUser(user.id)">Eliminar</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <form (submit)="addUser(newUser)">
-      <input [(ngModel)]="newUser.email" placeholder="Email">
-      <input [(ngModel)]="newUser.role" placeholder="Rol">
-      <button type="submit">Agregar Usuario</button>
-    </form>
+  <div class="nav-wrapper">
+    <a routerLink="/" class="brand-logo"><img src="../../../assets/logo.png" alt="Logo" class="logo"></a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a routerLink="/about">Sobre Nosotros</a></li>
+      <li><a routerLink="/instrumentation">Instrumentación</a></li>
+      <li><a routerLink="/contact">Contacto</a></li>
+      <li><a (click)="logout()"><img src="../../../assets/logout.png" alt="Logout" class="icon"></a></li>
+    </ul>
   </div>
-  
+</nav>
+<div class="container">
+  <h2>Administrar Usuarios</h2>
+  <table class="striped">
+    <thead>
+      <tr>
+        <th>Email</th>
+        <th>Rol</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.email }}</td>
+        <td>{{ user.role }}</td>
+        <td>
+          <button (click)="updateUser(user)">Modificar</button>
+          <button (click)="deleteUser(user._id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <form (submit)="addUser(newUser)">
+    <input [(ngModel)]="newUser.email" placeholder="Email" name="email">
+    <input [(ngModel)]="newUser.role" placeholder="Rol" name="role">
+    <button type="submit">Agregar Usuario</button>
+  </form>
+</div>

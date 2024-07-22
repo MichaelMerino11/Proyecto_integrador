@@ -14,6 +14,12 @@ import { ContactComponent } from './components/contact/contact.component';
 import { RouterModule } from '@angular/router';
 import { AdminComponent } from './components/admin/admin.component';
 import { OperatorComponent } from './components/operator/operator.component';
+import { ChartsComponent } from './components/charts/charts.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// O bien
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { UploadComponent } from './components/upload/upload.component';
 
 @NgModule({
   declarations: [
@@ -26,14 +32,18 @@ import { OperatorComponent } from './components/operator/operator.component';
     InstrumentationComponent,
     ContactComponent,
     AdminComponent,
-    OperatorComponent
+    OperatorComponent,
+    ChartsComponent,
+    UploadComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgxChartsModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -18,11 +18,18 @@ export class AuthService {
       tap(response => {
         if (response.token) {
           localStorage.setItem('authToken', response.token);
-          localStorage.setItem('role', response.role); // Si el backend devuelve el rol
+          localStorage.setItem('role', response.role); // Aquí guardamos el rol
+          console.log('rol es '+ localStorage.getItem('role'));
+          if(localStorage.getItem('role')=='admin'){
+            this.router.navigate(['/admin/users']);
+          } else {
+            this.router.navigate(['/operator/profile']);
+          }
         }
       })
     );
   }
+  
   
 
   register(email: string, password: string, role: string): Observable<any> {
@@ -45,6 +52,10 @@ export class AuthService {
 
   setRole(role: string) {
     localStorage.setItem('role', role);
+  }
+
+  Window() {
+    
   }
   
 }

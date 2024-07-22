@@ -2,7 +2,7 @@
 <nav>
   <div class="nav-wrapper">
     <a routerLink="/" class="brand-logo"
-      ><img src="assets/logo.png" alt="Logo" class="logo"
+      ><img src="../../../assets/logo.png" alt="Logo" class="logo"
     /></a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
       <li><a routerLink="/about">Sobre Nosotros</a></li>
@@ -10,7 +10,7 @@
       <li><a routerLink="/contact">Contacto</a></li>
       <li>
         <a (click)="logout()"
-          ><img src="assets/logout.png" alt="Logout" class="icon"
+          ><img src="../../../assets/logout.png" alt="Logout" class="icon"
         /></a>
       </li>
     </ul>
@@ -25,9 +25,12 @@
       placeholder="Nueva Contraseña"
       name="newPassword"
     />
-    <button type="submit">Actualizar Contraseña</button>
+    <button class="waves-effect waves-light btn" type="submit">Actualizar Contraseña</button>
+    <a class="waves-effect waves-light btn" routerLink="/operator/profile/char">Graficos</a>
+    <a class="waves-effect waves-light btn" routerLink="/operator/profile/upload">Actualizar DataBase</a>
   </form>
   <li>
-    <a (click)="logout()"><img src="assets/logout.png" alt="Logout" /></a>
+    
+    <a (click)="logout()"><img src="../../../assets/logout.png" width="10%" alt="Logout" /></a>
   </li>
 </div>

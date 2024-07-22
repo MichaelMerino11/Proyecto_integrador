@@ -1,0 +1,16 @@
+.upload-container {
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+  }
+  
+  .success-message {
+    color: green;
+    margin-top: 20px;
+  }
+  
+  .error-message {
+    color: red;
+    margin-top: 20px;
+  }
+  
