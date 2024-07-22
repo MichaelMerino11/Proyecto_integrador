@@ -24,4 +24,24 @@ app.use('/api/auth', authRoutes);
 app.use('/api/temperature', tempRoutes);
 app.use('/api/users', userRoutes);
 
+// Use routes
+app.use('/api/auth', authRoutes);
+app.use('/api/temperature', tempRoutes);
+app.use('/api/users', userRoutes);
+
+const DataSchema = new mongoose.Schema({}, { strict: false });
+const Data = mongoose.model('Data', DataSchema, 'datos');
+
+app.use(cors());
+
+// Endpoint para obtener los datos
+app.get('/data', async (req, res) => {
+    try {
+        const data = await Data.find({});
+        res.json(data);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

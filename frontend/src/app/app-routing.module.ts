@@ -12,6 +12,7 @@ import { InstrumentationComponent } from './components/instrumentation/instrumen
 import { ContactComponent } from './components/contact/contact.component';
 import { AuthGuard } from './guards/auth.guard';
 import { RoleGuard } from './guards/role.guard';
+import { ChartsComponent } from "./components/charts/charts.component";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'admin/users', component: AdminComponent, canActivate: [AuthGuard, RoleGuard], data: { role: 'admin' } },
   { path: 'operator/profile', component: OperatorComponent, canActivate: [AuthGuard, RoleGuard], data: { role: 'operator' } },
+  { path: 'operator/profile/char', component: ChartsComponent, canActivate: [AuthGuard, RoleGuard], data: { role: 'operator' } },
   { path: 'about', component: AboutComponent },
   { path: 'instrumentation', component: InstrumentationComponent },
   { path: 'contact', component: ContactComponent },

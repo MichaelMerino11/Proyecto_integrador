@@ -1,0 +1,94 @@
+<!-- contact.component.html -->
+<nav>
+    <div class="nav-wrapper">
+      <a routerLink="/" class="brand-logo"><img src="assets/logo.png" alt="Logo" class="logo"></a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a routerLink="/about">Sobre Nosotros</a></li>
+        <li><a routerLink="/instrumentation">Instrumentación</a></li>
+        <li><a routerLink="/contact">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
+<div>
+    <button (click)="showTemperature()">Mostrar Gráfico de Temperatura</button>
+    <button (click)="showHumidity()">Mostrar Gráfico de Humedad</button>
+    <button (click)="showPie()">Mostrar Gráfico de Pastel</button>
+    <button (click)="showArea()">Mostrar Gráfico de Área</button>
+    <button (click)="showLine()">Mostrar Gráfico de Líneas</button>
+  </div>
+  
+  <div *ngIf="showTemperatureChart">
+    <ngx-charts-line-chart
+      [view]="view"
+      [scheme]="colorScheme"
+      [results]="temperatureData"
+      [gradient]="gradient"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [legend]="showLegend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel">
+    </ngx-charts-line-chart>
+  </div>
+  
+  <div *ngIf="showHumidityChart">
+    <ngx-charts-line-chart
+      [view]="view"
+      [scheme]="colorScheme"
+      [results]="humidityData"
+      [gradient]="gradient"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [legend]="showLegend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel">
+    </ngx-charts-line-chart>
+  </div>
+  
+  <div *ngIf="showPieChart">
+    <ngx-charts-pie-chart
+      [view]="view"
+      [scheme]="colorScheme"
+      [results]="pieData"
+      [legend]="showLegend"
+      [explodeSlices]="false"
+      [labels]="true">
+    </ngx-charts-pie-chart>
+  </div>
+  
+  <div *ngIf="showAreaChart">
+    <ngx-charts-area-chart
+      [view]="view"
+      [scheme]="colorScheme"
+      [results]="areaData"
+      [gradient]="gradient"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [legend]="showLegend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel">
+    </ngx-charts-area-chart>
+  </div>
+  
+  <div *ngIf="showLineChart">
+    <ngx-charts-line-chart
+      [view]="view"
+      [scheme]="colorScheme"
+      [results]="lineData"
+      [gradient]="gradient"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [legend]="showLegend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel">
+    </ngx-charts-line-chart>
+  </div>
+  

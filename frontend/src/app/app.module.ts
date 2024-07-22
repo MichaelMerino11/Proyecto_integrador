@@ -14,6 +14,8 @@ import { ContactComponent } from './components/contact/contact.component';
 import { RouterModule } from '@angular/router';
 import { AdminComponent } from './components/admin/admin.component';
 import { OperatorComponent } from './components/operator/operator.component';
+import { ChartsComponent } from './components/charts/charts.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [
@@ -26,14 +28,16 @@ import { OperatorComponent } from './components/operator/operator.component';
     InstrumentationComponent,
     ContactComponent,
     AdminComponent,
-    OperatorComponent
+    OperatorComponent,
+    ChartsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgxChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
