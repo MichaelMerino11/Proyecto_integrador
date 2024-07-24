@@ -9,11 +9,9 @@ import { AuthService } from '../../services/auth.service';
 })
 export class AdminComponent implements OnInit {
   users: any[] = [];
-  newUser: any = {
-    email: '',
-    password: '', // Añadido para la contraseña
-    role: '',
-  };
+  newUser: any = {};
+  editUserId: string | null = null; // Almacenar el ID del usuario que está en modo de edición
+  editUser: any = {}; // Almacenar los datos editados del usuario
 
   constructor(
     private userService: UserService,
@@ -34,6 +32,33 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  startEditing(user: any): void { 
+    this.editUserId = user._id;
+    this.editUser = { ...user }; // Clonamos el usuario para editar
+  }
+  
+  saveUser(): void {
+    if (this.editUserId) {
+      // Asegúrate de que `editUser` contiene todos los campos necesarios
+      this.userService.updateUser(this.editUser).subscribe({
+        next: (updatedUser) => {
+          console.log('Cambios guardados exitosamente');
+          this.loadUsers(); // Recargar la lista de usuarios
+          this.cancelEditing();
+        },
+        error: (error) => {
+          console.log('Error al guardar los cambios:', error);
+        }
+      });
+    }
+  }
+    
+
+  cancelEditing(): void {
+    this.editUserId = null;
+    this.editUser = {};
+  }
+
   addUser(user: any) {
     if (!user.email || !user.password || !user.role) {
       alert('Please fill in all fields');
@@ -49,21 +74,13 @@ export class AdminComponent implements OnInit {
     if (this.users.length === 1) {
       if (confirm('¿Seguro que quieres borrar todos los usuarios?')) {
         this.userService.deleteUser(id).subscribe(() => {
-          this.users = this.users.filter(user => user._id !== id);
+          this.users = this.users.filter((user) => user._id !== id);
         });
       }
     } else {
       this.userService.deleteUser(id).subscribe(() => {
-        this.users = this.users.filter(user => user._id !== id);
+        this.users = this.users.filter((user) => user._id !== id);
       });
     }
-  }
-
-  updateUser(user: any) {
-    if (!user._id) return;
-    const updatedUser = { ...user }; // Clonamos el usuario para modificar
-    this.userService.updateUser(updatedUser).subscribe(() => {
-      this.loadUsers();
-    });
   }
 }

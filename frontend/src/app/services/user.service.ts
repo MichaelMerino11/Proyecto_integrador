@@ -36,10 +36,11 @@ export class UserService {
   }
 
   updateUser(user: any): Observable<any> {
-    return this.http.put<any>(`${this.baseUrl}/${user.id}`, user, {
-      headers: this.getAuthHeaders(),
+    return this.http.put<any>(`${this.baseUrl}/${user._id}`, user, {
+      headers: this.getAuthHeaders(), // Agregar encabezados de autenticación
     });
-  }
+  }  
+  
 
   updatePassword(newPassword: string): Observable<any> {
     return this.http.put<any>(
