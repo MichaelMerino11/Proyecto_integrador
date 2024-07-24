@@ -27,11 +27,6 @@ app.use('/api/auth', authRoutes);
 app.use('/api/temperature', tempRoutes);
 app.use('/api/users', userRoutes);
 
-// Use routes
-app.use('/api/auth', authRoutes);
-app.use('/api/temperature', tempRoutes);
-app.use('/api/users', userRoutes);
-
 // Configuración de Multer
 const storage = multer.memoryStorage(); // Guardar en memoria para procesar el archivo
 const upload = multer({ storage: storage });
@@ -78,8 +73,5 @@ app.post('/upload-json', upload.single('file'), async (req, res) => {
     res.status(500).send('Error al procesar el archivo JSON');
   }
 });
-
-
-
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
