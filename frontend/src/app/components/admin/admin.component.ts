@@ -45,11 +45,18 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  deleteUser(id: string) {
-    if (!id) return;
-    this.userService.deleteUser(id).subscribe(() => {
-      this.loadUsers();
-    });
+  deleteUser(id: string): void {
+    if (this.users.length === 1) {
+      if (confirm('¿Seguro que quieres borrar todos los usuarios?')) {
+        this.userService.deleteUser(id).subscribe(() => {
+          this.users = this.users.filter(user => user._id !== id);
+        });
+      }
+    } else {
+      this.userService.deleteUser(id).subscribe(() => {
+        this.users = this.users.filter(user => user._id !== id);
+      });
+    }
   }
 
   updateUser(user: any) {
