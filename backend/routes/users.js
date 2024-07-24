@@ -43,15 +43,16 @@ router.get('/me', authMiddleware.auth, async (req, res) => {
   }
 });
 
-router.put('/password', authMiddleware.operatorAuth, async (req, res) => {
+router.put('/:id', authMiddleware.adminAuth, async (req, res) => {
+  const { email, password, role } = req.body;
   try {
-    const user = await User.findById(req.user.userId); // Obtener el usuario desde el ID en la solicitud
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+    let updateData = { role };
+    if (email) updateData.email = email;
+    if (password) {
+      updateData.password = await bcrypt.hash(password, 10);
     }
-    user.password = req.body.password; // Actualiza la contraseña
-    await user.save();
-    res.json({ message: 'Password updated' });
+    await User.findByIdAndUpdate(req.params.id, updateData);
+    res.json({ message: 'User updated' });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

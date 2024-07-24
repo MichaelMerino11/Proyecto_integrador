@@ -32,8 +32,9 @@
     </tbody>
   </table>
   <form (submit)="addUser(newUser)">
-    <input [(ngModel)]="newUser.email" placeholder="Email" name="email">
-    <input [(ngModel)]="newUser.role" placeholder="Rol" name="role">
+    <input [(ngModel)]="newUser.email" placeholder="Email" name="email" required>
+    <input [(ngModel)]="newUser.password" type="password" placeholder="Contraseña" name="password" required>
+    <input [(ngModel)]="newUser.role" placeholder="Rol" name="role" required>
     <button type="submit">Agregar Usuario</button>
   </form>
 </div>

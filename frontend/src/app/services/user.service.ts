@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
   private baseUrl = 'http://localhost:5000/api/users';
@@ -13,33 +13,39 @@ export class UserService {
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('authToken');
     return new HttpHeaders({
-      'Authorization': `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
     });
   }
 
   getUsers(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}`, { headers: this.getAuthHeaders() });
+    return this.http.get<any>(`${this.baseUrl}`, {
+      headers: this.getAuthHeaders(),
+    });
   }
 
   addUser(user: any): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}`, user, { headers: this.getAuthHeaders() });
+    return this.http.post<any>(`${this.baseUrl}`, user, {
+      headers: this.getAuthHeaders(),
+    });
   }
 
   deleteUser(id: string): Observable<any> {
-    return this.http.delete<any>(`${this.baseUrl}/${id}`, { headers: this.getAuthHeaders() });
+    return this.http.delete<any>(`${this.baseUrl}/${id}`, {
+      headers: this.getAuthHeaders(),
+    });
   }
 
   updateUser(user: any): Observable<any> {
-    return this.http.put<any>(`${this.baseUrl}/${user.id}`, user, { headers: this.getAuthHeaders() });
+    return this.http.put<any>(`${this.baseUrl}/${user.id}`, user, {
+      headers: this.getAuthHeaders(),
+    });
   }
 
-  getUser(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/me`, { headers: this.getAuthHeaders() });
+  updatePassword(newPassword: string): Observable<any> {
+    return this.http.put<any>(
+      `${this.baseUrl}/password`,
+      { password: newPassword },
+      { headers: this.getAuthHeaders() }
+    );
   }
-
- // user.service.ts
-updatePassword(newPassword: string): Observable<any> {
-  return this.http.put<any>(`${this.baseUrl}/password`, { password: newPassword }, { headers: this.getAuthHeaders() });
-}
-
 }

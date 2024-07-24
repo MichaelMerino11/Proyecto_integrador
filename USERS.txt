@@ -1,0 +1,16 @@
+USERS:
+
+--------> Admin:
+
+admin@ups.edu.ec
+ALEXligaMIKE11
+
+a@ups.edu.ec
+123
+
+-------> Operador:
+operator@ups.edu.ec
+ALEXligaMIKE11
+
+o@ups.edu.ec
+123

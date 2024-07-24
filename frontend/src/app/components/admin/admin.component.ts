@@ -5,17 +5,20 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
+  styleUrls: ['./admin.component.css'],
 })
 export class AdminComponent implements OnInit {
   users: any[] = [];
-
   newUser: any = {
     email: '',
-    role: ''
+    password: '', // Añadido para la contraseña
+    role: '',
   };
 
-  constructor(private userService: UserService, private authService: AuthService) {}
+  constructor(
+    private userService: UserService,
+    private authService: AuthService
+  ) {}
 
   logout() {
     this.authService.logout();
@@ -26,37 +29,33 @@ export class AdminComponent implements OnInit {
   }
 
   loadUsers() {
-    this.userService.getUsers().subscribe(data => {
-      console.log(data); // Verifica que los datos tengan un campo `id` o `_id`
+    this.userService.getUsers().subscribe((data) => {
       this.users = data;
     });
   }
 
   addUser(user: any) {
+    if (!user.email || !user.password || !user.role) {
+      alert('Please fill in all fields');
+      return;
+    }
     this.userService.addUser(user).subscribe(() => {
       this.loadUsers();
+      this.newUser = { email: '', password: '', role: '' }; // Limpiar formulario
     });
   }
 
   deleteUser(id: string) {
-    if (!id) {
-      console.error('ID is undefined');
-      return;
-    }
-    console.log(id);
+    if (!id) return;
     this.userService.deleteUser(id).subscribe(() => {
       this.loadUsers();
     });
   }
 
   updateUser(user: any) {
-    console.log(user);
-    if (!user._id) {
-      console.error('User ID is undefined');
-      return;
-    }
-    this.userService.updateUser(user).subscribe(() => {
-      console.log(user);
+    if (!user._id) return;
+    const updatedUser = { ...user }; // Clonamos el usuario para modificar
+    this.userService.updateUser(updatedUser).subscribe(() => {
       this.loadUsers();
     });
   }

@@ -23,7 +23,7 @@ export class OperatorComponent implements OnInit {
   }
 
   loadUser() {
-    this.userService.getUser().subscribe(data => {
+    this.userService.getUsers().subscribe(data => {
       this.user = data;
     });
   }
