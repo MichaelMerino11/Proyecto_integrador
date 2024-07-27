@@ -9,7 +9,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class AdminComponent implements OnInit {
   users: any[] = [];
-  newUser: any = {};
+  newUser: any = { email: '', password: '', role: '' };
   editUserId: string | null = null; // Almacenar el ID del usuario que está en modo de edición
   editUser: any = {}; // Almacenar los datos editados del usuario
 
@@ -52,7 +52,6 @@ export class AdminComponent implements OnInit {
       });
     }
   }
-    
 
   cancelEditing(): void {
     this.editUserId = null;

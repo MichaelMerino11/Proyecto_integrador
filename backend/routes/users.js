@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
-const authMiddleware = require('../middlewares/auth');
+const bcrypt = require('bcryptjs');
 
 // Obtener todos los usuarios
 router.get('/', async (req, res) => {
@@ -16,7 +16,9 @@ router.get('/', async (req, res) => {
 // Crear un nuevo usuario
 router.post('/', async (req, res) => {
   try {
-    const newUser = new User(req.body);
+    const { email, password, role } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new User({ email, password: hashedPassword, role });
     await newUser.save();
     res.status(201).json(newUser);
   } catch (err) {
@@ -36,7 +38,6 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-
 // Eliminar un usuario
 router.delete('/:id', async (req, res) => {
   try {
@@ -47,6 +48,5 @@ router.delete('/:id', async (req, res) => {
     res.status(500).send(err);
   }
 });
-
 
 module.exports = router;
