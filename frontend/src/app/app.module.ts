@@ -15,6 +15,7 @@ import { RouterModule } from '@angular/router';
 import { AdminComponent } from './components/admin/admin.component';
 import { OperatorComponent } from './components/operator/operator.component';
 import { ChartsComponent } from './components/charts/charts.component';
+import { RegisterComponent } from './components/register/register.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // O bien
@@ -25,6 +26,7 @@ import { UploadComponent } from './components/upload/upload.component';
   declarations: [
     AppComponent,
     HomeComponent,
+    RegisterComponent,
     LoginComponent,
     TemperatureTableComponent,
     FooterComponent,

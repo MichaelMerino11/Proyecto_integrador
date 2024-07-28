@@ -1,17 +1,18 @@
-<!-- login.component.html -->
 <nav>
   <div class="nav-wrapper">
     <a routerLink="/" class="brand-logo"><img src="assets/logo.png" alt="Logo" class="logo"></a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a routerLink="/">Home</a></li>
       <li><a routerLink="/about">Sobre Nosotros</a></li>
       <li><a routerLink="/instrumentation">Instrumentación</a></li>
       <li><a routerLink="/contact">Contacto</a></li>
     </ul>
   </div>
 </nav>
+<!-- register.component.html -->
 <div class="container">
-  <h2>Iniciar Sesión</h2>
-  <form (ngSubmit)="login()">
+  <h2>Registrarse</h2>
+  <form (ngSubmit)="register()">
     <div class="input-field">
       <input type="email" id="email" [(ngModel)]="email" name="email" required />
       <label for="email">Correo Electrónico</label>
@@ -20,10 +21,12 @@
       <input type="password" id="password" [(ngModel)]="password" name="password" required />
       <label for="password">Contraseña</label>
     </div>
-    <button class="btn waves-effect waves-light" type="submit">Iniciar Sesión</button>
+    <div class="input-field">
+      <input type="text" id="role" [(ngModel)]="role" name="role" required />
+      <label for="role">Rol</label>
+    </div>
+    <button class="btn waves-effect waves-light" type="submit">Registrarse</button>
     <p *ngIf="error" class="error">{{ error }}</p>
   </form>
-  <div class="register-link">
-    <p>¿No tienes una cuenta? <a routerLink="/register">Registrarse</a></p>
-  </div>
 </div>
+

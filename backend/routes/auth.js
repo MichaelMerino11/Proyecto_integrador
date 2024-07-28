@@ -7,6 +7,14 @@ const User = require('../models/User');
 router.post('/register', async (req, res) => {
   const { email, password, role } = req.body;
   try {
+    if (!email.endsWith('@ups.edu.ec')) {
+      return res.status(400).send('El correo electrónico debe ser del dominio ups.edu.ec');
+    }
+
+    if (password.length < 6 || !/\d/.test(password) || !/[a-zA-Z]/.test(password)) {
+      return res.status(400).send('La contraseña debe tener al menos 6 caracteres, incluyendo letras y números');
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({ email, password: hashedPassword, role });
     await newUser.save();
@@ -15,6 +23,7 @@ router.post('/register', async (req, res) => {
     res.status(500).send(err.message);
   }
 });
+
 
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
