@@ -24,13 +24,22 @@ export class OperatorComponent implements OnInit {
 
   loadUser() {
     this.userService.getUsers().subscribe(data => {
-      this.user = data;
+      // Asume que solo hay un usuario en la respuesta.
+      this.user = data[0];
+      localStorage.setItem('userId', this.user._id); // Guarda el ID del usuario en localStorage
     });
   }
 
   updatePassword() {
-    this.userService.updatePassword(this.newPassword).subscribe(() => {
-      alert('Contraseña actualizada');
-    });
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      this.userService.updatePassword(this.newPassword, userId).subscribe(() => {
+        alert('Contraseña actualizada');
+      }, error => {
+        alert('Error al actualizar la contraseña');
+      });
+    } else {
+      alert('Error: No se pudo obtener el ID del usuario');
+    }
   }
 }

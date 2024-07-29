@@ -1,3 +1,4 @@
+// routes/users.js
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
@@ -31,6 +32,20 @@ router.put('/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const updatedUser = await User.findByIdAndUpdate(id, req.body, { new: true });
+    if (!updatedUser) return res.status(404).send('Usuario no encontrado');
+    res.json(updatedUser);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+// Actualizar contraseña de un usuario
+router.put('/updatePassword/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { password } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const updatedUser = await User.findByIdAndUpdate(id, { password: hashedPassword }, { new: true });
     if (!updatedUser) return res.status(404).send('Usuario no encontrado');
     res.json(updatedUser);
   } catch (err) {
