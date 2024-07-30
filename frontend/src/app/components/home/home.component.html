@@ -1,19 +1,52 @@
-<!-- home.component.html -->
-<nav>
+<nav role="navigation">
   <div class="nav-wrapper">
-    <a href="/" class="brand-logo"><img src="assets/logo.png" alt="Logo" class="logo"></a>
-    <ul id="nav-mobile" class="right hide-on-med-and-down">
+    <a href="/" class="brand-logo"><img src="../../../assets/logo.png" alt="Logo del Sistema de Monitoreo de Temperatura" class="logo"></a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down" aria-label="Main navigation">
       <li><a routerLink="/about">Sobre Nosotros</a></li>
       <li><a routerLink="/instrumentation">Instrumentación</a></li>
       <li><a routerLink="/contact">Contacto</a></li>
-      <li><a routerLink="/login"><img src="assets/login.png" alt="Login" class="icon"></a></li>
+      <li><a routerLink="/login"><img src="../../../assets/login.png" alt="Login" class="icon"></a></li>
     </ul>
   </div>
 </nav>
+
+<div class="background">
+  <div class="overlay">
+    <div class="welcome-text" role="heading" aria-level="1">
+      <h1>Bienvenido al Sistema de Monitoreo de Temperatura</h1>
+    </div>
+  </div>
+</div>
+
 <div class="container">
-  <h1>Bienvenido al Sistema de Monitoreo de Temperatura</h1>
-  <p>En esta aplicación, puedes monitorear y administrar la temperatura del datacenter.</p>
-  <div class="row">
-    <a routerLink="/login" class="waves-effect waves-light btn-large">Iniciar Sesión</a>
+  <div class="description-section">
+    <h2>Descripción</h2>
+    <p>
+      Nuestro sistema de monitoreo de temperatura está diseñado para proporcionar una solución integral para la gestión de datos en datacenters. A través de nuestra plataforma, los usuarios pueden monitorear en tiempo real las condiciones ambientales, realizar ajustes necesarios para optimizar el rendimiento y asegurar la seguridad de los equipos. Con gráficos interactivos y reportes detallados, nuestro sistema facilita la toma de decisiones informadas y la prevención de problemas antes de que ocurran. Además, ofrecemos funcionalidades avanzadas como alarmas automáticas y análisis de tendencias históricas para una gestión proactiva.
+    </p>
+  </div>
+
+  <div class="reviews-section">
+    <h2>Opiniones de Usuarios</h2>
+    <div class="review" aria-label="User review 1">
+      <img src="../../../assets/user.png" alt="Foto de perfil de Juan Pérez">
+      <p>"Esta plataforma ha transformado completamente nuestra gestión del datacenter. Muy recomendable!"</p>
+      <h4>Juan Pérez</h4>
+    </div>
+    <div class="review" aria-label="User review 2">
+      <img src="../../../assets/user.png" alt="Foto de perfil de Ana Gómez">
+      <p>"El monitoreo en tiempo real y las alertas automáticas nos han ahorrado mucho tiempo y esfuerzo."</p>
+      <h4>Ana Gómez</h4>
+    </div>
+    <div class="review" aria-label="User review 3">
+      <img src="../../../assets/user.png" alt="Foto de perfil de Carlos Rodríguez">
+      <p>"Una herramienta esencial para cualquier administrador de datacenters. Fácil de usar y muy efectiva."</p>
+      <h4>Carlos Rodríguez</h4>
+    </div>
+    <div class="review" aria-label="User review 4">
+      <img src="../../../assets/user.png" alt="Foto de perfil de María López">
+      <p>"La mejor inversión que hemos hecho para mejorar la eficiencia y seguridad de nuestros equipos."</p>
+      <h4>María López</h4>
+    </div>
   </div>
 </div>
