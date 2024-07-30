@@ -6,12 +6,27 @@ const bodyParser = require("body-parser");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+const admin = require("firebase-admin");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(bodyParser.json());
+
+
+// Configuración de Firebase Admin
+const serviceAccount = require("./esp32.json");
+//const serviceAccount = require("./angular.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://esp32mms-default-rtdb.firebaseio.com/"
+  //databaseURL: "https://angular-b3897-default-rtdb.firebaseio.com/"
+});
+
+const db = admin.database();
+
 
 mongoose
   .connect("mongodb://localhost:27017/Proyecto_Integrador", {
@@ -42,40 +57,27 @@ app.use(bodyParser.json());
 const DataSchema = new mongoose.Schema({}, { strict: false });
 const Data = mongoose.model("Data", DataSchema, "datos");
 
-// Endpoint para obtener los datos
 app.get("/data", async (req, res) => {
   try {
-    const data = await Data.find({});
-    res.json(data);
+    const ref = db.ref('/');
+    const limit = parseInt(req.query.limit, 10) || 100; // Valor por defecto
+    const skip = parseInt(req.query.skip, 10) || 0; // Valor por defecto
+
+    ref.orderByKey().limitToFirst(limit + skip).once('value', (snapshot) => {
+      const data = snapshot.val();
+      const result = Object.keys(data).slice(skip).reduce((acc, key) => {
+        acc[key] = data[key];
+        return acc;
+      }, {});
+
+      res.json(result);
+    }, (errorObject) => {
+      res.status(500).send("The read failed: " + errorObject.name);
+    });
   } catch (err) {
     res.status(500).send(err);
   }
 });
 
-// Endpoint para subir el archivo JSON
-app.post("/upload-json", upload.single("file"), async (req, res) => {
-  try {
-    if (!req.file || !req.file.buffer) {
-      return res.status(400).send("No file uploaded");
-    }
-
-    // Parsear el archivo JSON
-    const fileContent = req.file.buffer.toString("utf-8");
-    const jsonData = JSON.parse(fileContent);
-
-    // Validar la estructura del JSON
-    if (!jsonData.humedad || !jsonData.temperatura) {
-      return res.status(400).send("Invalid JSON structure");
-    }
-
-    // Guardar o actualizar los datos en la base de datos
-    await Data.updateOne({}, jsonData, { upsert: true });
-
-    res.send("Archivo subido y datos actualizados correctamente");
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Error al procesar el archivo JSON");
-  }
-});
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
