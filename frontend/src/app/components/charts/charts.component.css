@@ -1,0 +1,45 @@
+/* Estilo general para el contenedor de los campos de fecha */
+.date-picker-container {
+  margin: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para los campos de fecha */
+.date-picker-container input[type="date"] {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+/* Estilo para el botón de aplicar rango de fechas */
+.date-picker-container button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  box-sizing: border-box;
+  transition: background-color 0.3s;
+}
+
+/* Estilo para el botón en estado hover */
+.date-picker-container button:hover {
+  background-color: #0056b3;
+}
+
+/* Estilo para los mensajes de error (opcional) */
+.error-message {
+  color: #dc3545;
+  font-size: 14px;
+  margin-top: 10px;
+}

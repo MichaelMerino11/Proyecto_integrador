@@ -23,6 +23,13 @@ export class UserService {
     });
   }
 
+  
+  getUserById(id: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/${id}`, {
+      headers: this.getAuthHeaders(),
+    });
+  }
+
   addUser(user: any): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}`, user, {
       headers: this.getAuthHeaders(),

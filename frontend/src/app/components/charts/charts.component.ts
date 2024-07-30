@@ -1,27 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Color, ScaleType } from '@swimlane/ngx-charts';
-import { AuthService } from '../../services/auth.service';
-import { trigger, state, style, animate, transition } from '@angular/animations';
-import { UserService } from '../../services/user.service';
-import { FileUploadService } from '../../services/file-upload.service';
+import { Subscription, interval } from 'rxjs';
+import * as XLSX from 'xlsx';
+import { jsPDF } from 'jspdf';
+import 'jspdf-autotable';
+
+interface ChartEntry {
+  name: string; // Date
+  value: number; // Value
+}
+
+interface ExportData {
+  tipo: string;
+  fecha: string;
+  valor: number;
+}
 
 
 @Component({
   selector: 'app-charts',
   templateUrl: './charts.component.html',
-  styleUrls: ['./charts.component.css'],
-  animations: [
-    trigger('animationState', [
-      state('void', style({ opacity: 0 })),
-      state('*', style({ opacity: 1 })),
-      transition('void => *', [animate('300ms ease-in')]),
-      transition('* => void', [animate('300ms ease-out')])
-    ])
-  ]
+  styleUrls: ['./charts.component.css']
 })
-export class ChartsComponent implements OnInit {
+export class ChartsComponent implements OnInit, OnDestroy {
 
+  
   temperatureData: any[] = [];
   humidityData: any[] = [];
   pieData: any[] = [];
@@ -51,31 +55,113 @@ export class ChartsComponent implements OnInit {
     domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
   };
 
-  constructor(private http: HttpClient, private authService: AuthService, private userService: UserService, private fileUploadService: FileUploadService) {}
+  private dataSubscription: Subscription | undefined;
+
+  selectedDate: string = '';
+  startDate: string = '';
+  endDate: string = '';
+  skip: number = 0; // Number of records to skip
+  limit: number = 200; // Number of records to limit
+
+  constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
+    // Set default dates
+    const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
+    this.selectedDate = today;
+    this.startDate = today;
+    this.endDate = today;
+
     this.fetchData();
+    this.dataSubscription = interval(5000).subscribe(() => this.fetchData());
     this.showTemperatureChart = true;
   }
 
+  ngOnDestroy(): void {
+    if (this.dataSubscription) {
+      this.dataSubscription.unsubscribe();
+    }
+  }
+
   fetchData(): void {
-    this.http.get('http://localhost:5000/data').subscribe((data: any) => {
+    const params = {
+      skip: this.skip.toString(),
+      limit: this.limit.toString()
+    };
+  
+    this.http.get<{ temperatura: { [key: string]: ChartEntry }, humedad: { [key: string]: ChartEntry } }>('http://localhost:5000/data', { params })
+      .subscribe((data) => {
+        this.processData(data);
+      }, error => {
+        console.error('Error fetching data', error);
+      });
+  }
+  
+  processData(data: any): void {
+    console.log('Data fetched:', data); // Log the fetched data
+  
+    if (this.startDate && this.endDate) {
+      this.filterDataByDateRange(data);
+    } else if (this.selectedDate) {
+      this.filterDataByDate(data);
+    } else {
       this.formatData(data);
+    }
+  }
+  
+
+  filterDataByDateRange(data: any): void {
+    const filteredTemperature = this.filterByDateRange(data.temperatura, this.startDate, this.endDate);
+    const filteredHumidity = this.filterByDateRange(data.humedad, this.startDate, this.endDate);
+
+    this.formatData({
+      temperatura: filteredTemperature,
+      humedad: filteredHumidity
     });
   }
 
+  filterByDateRange(data: any, startDate: string, endDate: string): any {
+    const result: any = {};
+    for (const key of Object.keys(data)) {
+      const date = data[key].fecha.split(' ')[0];
+      if (date >= startDate && date <= endDate) {
+        result[key] = data[key];
+      }
+    }
+    return result;
+  }
+
+  filterDataByDate(data: any): void {
+    const filteredTemperature = this.filterByDate(data.temperatura, this.selectedDate);
+    const filteredHumidity = this.filterByDate(data.humedad, this.selectedDate);
+
+    this.formatData({
+      temperatura: filteredTemperature,
+      humedad: filteredHumidity
+    });
+  }
+
+  filterByDate(data: any, date: string): any {
+    const result: any = {};
+    for (const key of Object.keys(data)) {
+      if (data[key].fecha.startsWith(date)) {
+        result[key] = data[key];
+      }
+    }
+    return result;
+  }
+
   formatData(data: any): void {
-    const entry = data[0];  // Asumimos que los datos están en el primer elemento del array
     this.temperatureData = [
       {
         name: 'Temperatura',
-        series: this.transformToChartSeries(entry.temperatura)
+        series: this.transformToChartSeries(data.temperatura)
       }
     ];
     this.humidityData = [
       {
         name: 'Humedad',
-        series: this.transformToChartSeries(entry.humedad)
+        series: this.transformToChartSeries(data.humedad)
       }
     ];
     
@@ -83,11 +169,11 @@ export class ChartsComponent implements OnInit {
     this.pieData = [
       {
         name: 'Temperatura',
-        value: this.calculateAverage(entry.temperatura)
+        value: this.calculateAverage(data.temperatura)
       },
       {
         name: 'Humedad',
-        value: this.calculateAverage(entry.humedad)
+        value: this.calculateAverage(data.humedad)
       }
     ];
 
@@ -95,11 +181,11 @@ export class ChartsComponent implements OnInit {
     this.barData = [
       {
         name: 'Temperatura',
-        series: this.transformToChartSeries(entry.temperatura)
+        series: this.transformToChartSeries(data.temperatura)
       },
       {
         name: 'Humedad',
-        series: this.transformToChartSeries(entry.humedad)
+        series: this.transformToChartSeries(data.humedad)
       }
     ];
 
@@ -107,11 +193,11 @@ export class ChartsComponent implements OnInit {
     this.areaData = [
       {
         name: 'Temperatura',
-        series: this.transformToChartSeries(entry.temperatura)
+        series: this.transformToChartSeries(data.temperatura)
       },
       {
         name: 'Humedad',
-        series: this.transformToChartSeries(entry.humedad)
+        series: this.transformToChartSeries(data.humedad)
       }
     ];
 
@@ -119,11 +205,11 @@ export class ChartsComponent implements OnInit {
     this.lineData = [
       {
         name: 'Temperatura',
-        series: this.transformToChartSeries(entry.temperatura)
+        series: this.transformToChartSeries(data.temperatura)
       },
       {
         name: 'Humedad',
-        series: this.transformToChartSeries(entry.humedad)
+        series: this.transformToChartSeries(data.humedad)
       }
     ];
   }
@@ -134,6 +220,8 @@ export class ChartsComponent implements OnInit {
       value: data[key].valor
     }));
   }
+  
+
 
   calculateAverage(data: any): number {
     const values = Object.keys(data).map(key => data[key].valor);
@@ -193,9 +281,85 @@ export class ChartsComponent implements OnInit {
     this.showAreaChart = false;
     this.showLineChart = true;
   }
-  logout() {
-    this.authService.logout();
+
+  onDateChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input) {
+      this.selectedDate = input.value;
+      this.fetchData();
+    }
+  }
+
+  onStartDateChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input) {
+      this.startDate = input.value;
+      this.fetchData();
+    }
+  }
+
+  onEndDateChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input) {
+      this.endDate = input.value;
+      this.fetchData();
+    }
+  }
+
+  onDateRangeChange(): void {
+    if (this.startDate && this.endDate) {
+      this.fetchData();
+    }
+  }
+
+  exportToExcel(): void {
+    const dataToExport = this.prepareDataForExport();
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(dataToExport);
+    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    XLSX.writeFile(workbook, 'data.xlsx');
+  }
+
+  exportToPDF(): void {
+    const doc = new jsPDF();
+    const dataToExport = this.prepareDataForExport();
+    const columns = ['tipo', 'fecha', 'valor'];
+    const rows = dataToExport.map(row => [row.tipo, row.fecha, row.valor]);
+    (doc as any).autoTable(columns, rows);
+    doc.save('data.pdf');
   }
   
- 
+
+  private prepareDataForExport(): ExportData[] {
+    const exportData: ExportData[] = [];
+  
+    // Check if temperatureData and humidityData have data
+    console.log('Temperature Data:', this.temperatureData);
+    console.log('Humidity Data:', this.humidityData);
+  
+    // Merge temperature data
+    this.temperatureData[0]?.series?.forEach((entry: ChartEntry) => {
+      console.log('Temperature Entry:', entry); // Log each entry
+      exportData.push({
+        tipo: 'Temperatura',
+        fecha: entry.name,
+        valor: entry.value
+      });
+    });
+  
+    // Merge humidity data
+    this.humidityData[0]?.series?.forEach((entry: ChartEntry) => {
+      console.log('Humidity Entry:', entry); // Log each entry
+      exportData.push({
+        tipo: 'Humedad',
+        fecha: entry.name,
+        valor: entry.value
+      });
+    });
+  
+    console.log('Export Data:', exportData); // Log final export data
+  
+    return exportData;
+  }
+  
+  
 }

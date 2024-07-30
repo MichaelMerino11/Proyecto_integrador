@@ -6,9 +6,7 @@
         <li><a routerLink="/about">Sobre Nosotros</a></li>
         <li><a routerLink="/instrumentation">Instrumentación</a></li>
         <li><a routerLink="/contact">Contacto</a></li>
-        <li><a (click)="logout()"
-          ><img src="../../../assets/logout.png" alt="Logout" class="icon"
-        /></a></li>
+       
       </ul>
     </div>
   </nav>
@@ -21,7 +19,22 @@
     <a class="waves-effect waves-light btn-small" routerLink="/operator/profile">Menu</a>
 </div>
  
-  
+
+<div class="date-picker-container">
+  <h2>Escoje tu rango de fecha</h2>
+
+
+  <!-- Date Picker for Start Date -->
+  <input type="date" [value]="startDate" (change)="onStartDateChange($event)" />
+
+  <!-- Date Picker for End Date -->
+  <input type="date" [value]="endDate" (change)="onEndDateChange($event)" />
+
+  <!-- Button to trigger data range filtering -->
+  <button (click)="onDateRangeChange()">Aplicar</button>
+
+  <!-- Optional error message -->
+
   <div *ngIf="showTemperatureChart">
     <ngx-charts-line-chart
       [view]="view"
@@ -96,4 +109,10 @@
       [yAxisLabel]="yAxisLabel">
     </ngx-charts-line-chart>
   </div>
+
+  <div>
+    <button (click)="exportToExcel()">Exportar a Excel</button>
+    <button (click)="exportToPDF()">Exportar a PDF</button>
+  </div>
   
+</div>  

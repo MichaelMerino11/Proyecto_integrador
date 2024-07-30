@@ -19,6 +19,7 @@ export class LoginComponent {
       response => {
         localStorage.setItem('token', response.token);
         localStorage.setItem('authToken', response.token);
+        localStorage.setItem('userId', response.userId); // Almacena el userId
       },
       error => {
         this.error = 'Credenciales incorrectas';

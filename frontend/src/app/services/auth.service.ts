@@ -18,6 +18,7 @@ export class AuthService {
       tap(response => {
         if (response.token) {
           localStorage.setItem('authToken', response.token);
+          localStorage.setItem('userId', response.userId); // Almacena el userId
           localStorage.setItem('role', response.role); // Aquí guardamos el rol
           if (response.role === 'admin') {
             this.router.navigate(['/admin/users']);
