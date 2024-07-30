@@ -1,0 +1,79 @@
+/* about.component.css */
+
+/* General styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 20%;
+  }
+  
+  /* Navigation styles */
+
+  .brand-logo img.logo {
+    height: 50px;
+    vertical-align: middle;
+  }
+  
+  ul#nav-mobile {
+    margin: 0;
+  }
+  
+  ul#nav-mobile li a {
+    color: white;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    text-decoration: none;
+  }
+  
+  ul#nav-mobile li a:hover {
+    background-color: #1976D2; /* Darker shade of primary color */
+    border-radius: 4px;
+  }
+  
+  ul#nav-mobile li a img.icon {
+    height: 30px;
+    margin-left: 5px;
+  }
+  
+  /* Container styles */
+  .container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 800px;
+    padding: 20px;
+    line-height: 1.6;
+    text-align: center; /* Center text and inline elements */
+  }
+  
+  .container h2 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .container p {
+    color: #666;
+    margin-bottom: 15px;
+    text-align: justify;
+  }
+  
+  .container p:first-of-type {
+    font-weight: bold;
+  }
+  
+  /* Center the button */
+  .button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+
+  button.btn:hover {
+    background-color: #1976D2;
+  }
+  

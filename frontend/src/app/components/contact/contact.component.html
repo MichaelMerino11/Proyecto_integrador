@@ -1,18 +1,55 @@
 <!-- contact.component.html -->
 <nav>
-    <div class="nav-wrapper">
-      <a routerLink="/" class="brand-logo"><img src="assets/logo.png" alt="Logo" class="logo"></a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a routerLink="/about">Sobre Nosotros</a></li>
-        <li><a routerLink="/instrumentation">Instrumentación</a></li>
-        <li><a routerLink="/contact">Contacto</a></li>
-        <li><a (click)="logout()"><img src="assets/logout.png" alt="Logout" class="icon"></a></li>
-      </ul>
-    </div>
-  </nav>
-  <div class="container">
-    <h2>Contacto</h2>
-    <p>Contenido de Contacto...</p>
-    <button (click)="navigateHome()" class="btn">Regresar al Home</button>
+  <div class="nav-wrapper">
+    <a routerLink="/" class="brand-logo"><img src="assets/logo.png" alt="Logo" class="logo"></a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a routerLink="/about">Sobre Nosotros</a></li>
+      <li><a routerLink="/instrumentation">Instrumentación</a></li>
+      <li><a routerLink="/contact">Contacto</a></li>
+      <li><a (click)="logout()"><img src="assets/logout.png" alt="Logout" class="icon"></a></li>
+    </ul>
   </div>
-  
+</nav>
+
+<div class="container">
+  <h2>Contacto</h2>
+  <p>Para cualquier consulta, no dudes en ponerte en contacto con nuestro equipo:</p>
+
+  <div class="contact-card">
+    <img src="../../../assets/login.png" alt="Persona 1" class="contact-photo">
+    <div class="contact-info">
+      <h3>Michael Merino</h3>
+      <p>Email: Michael&#64;est.ups.edu.ec</p>
+      <p>Teléfono: +593 98 468 4559</p>
+      <p> linkedin: <a href="https://www.linkedin.com/in/michael-merino-0b7871207/">Michael Merino</a></p>
+      <p> GitHub: <a href="https://github.com/MichaelMerino11">  Michael Merino</a></p>
+      <P>Instagram: <a href="https://www.instagram.com/maikijr11/">Michael Merino</a></P>
+      <p></p>
+    </div>
+  </div>
+
+  <div class="contact-card">
+    <img src="../../../assets/login.png" alt="Persona 2" class="contact-photo">
+    <div class="contact-info">
+      <h3>Alex Mendoza</h3>
+      <p>Email: alex&#64;est.ups.edu.ec</p>
+      <p>Teléfono: +593 98 350 1872</p>
+      <p> linkedin: <a href="https://www.linkedin.com/in/michael-merino-0b7871207/">Michael Merino</a></p>
+      <p> GitHub: <a href="https://github.com/MichaelMerino11">  Alex Mendoza</a></p>
+      <P>Instagram: <a href="https://www.instagram.com/maikijr11/">Alex Mendoza</a></P>
+    </div>
+  </div>
+
+  <div class="contact-card">
+    <img src="../../../assets/login.png" alt="Persona 3" class="contact-photo">
+    <div class="contact-info">
+      <h3>Ricardo Maigua</h3>
+      <p>Email: amaiguac&#64;est.ups.edu.ec</p>
+      <p> linkedin: <a href="https://www.linkedin.com/in/michael-merino-0b7871207/">Ricardo Maigua</a></p>
+      <p> GitHub: <a href="https://github.com/MichaelMerino11">  Ricardo Maigua</a></p>
+      <P>Instagram: <a href="https://www.instagram.com/maikijr11/"> Ricardo Maigua</a></P>
+    </div>
+  </div>
+
+  <button (click)="navigateHome()" class="btn">Regresar al Home</button>
+</div>

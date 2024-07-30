@@ -1,18 +1,68 @@
 <!-- instrumentation.component.html -->
 <nav>
-    <div class="nav-wrapper">
-      <a routerLink="/" class="brand-logo"><img src="assets/logo.png" alt="Logo" class="logo"></a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a routerLink="/about">Sobre Nosotros</a></li>
-        <li><a routerLink="/instrumentation">Instrumentación</a></li>
-        <li><a routerLink="/contact">Contacto</a></li>
-        <li><a (click)="logout()"><img src="assets/logout.png" alt="Logout" class="icon"></a></li>
-      </ul>
-    </div>
-  </nav>
-  <div class="container">
-    <h2>Instrumentación</h2>
-    <p>Contenido de Instrumentación...</p>
-    <button (click)="navigateHome()" class="btn">Regresar al Home</button>
+  <div class="nav-wrapper">
+    <a routerLink="/" class="brand-logo"><img src="assets/logo.png" alt="Logo" class="logo"></a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a routerLink="/about">Sobre Nosotros</a></li>
+      <li><a routerLink="/instrumentation">Instrumentación</a></li>
+      <li><a routerLink="/contact">Contacto</a></li>
+      <li><a (click)="logout()"><img src="assets/logout.png" alt="Logout" class="icon"></a></li>
+    </ul>
   </div>
+</nav>
+
+<br>
+<div class="instrumentation-container">
+  <h3 style="text-align: center;">Materiales</h3>
+  <p>Para medir la temperatura en el data center de nuestra universidad, utilizamos los siguientes materiales:</p>
+  <ul>
+    <li><strong>ESP32:</strong> Un microcontrolador que permite conectar sensores y enviar datos a través de Wi-Fi.</li>
+    <li><strong>DHT22:</strong> Un sensor de temperatura y humedad que proporciona lecturas precisas.</li>
+    <li><strong>Cables:</strong> Utilizados para conectar el ESP32 con el DHT22 y otros componentes.</li>
+    <li><strong>Protoboard:</strong> Una placa de pruebas para montar y conectar los componentes electrónicos.</li>
+    <li><strong>Plataforma Firebase:</strong> Utilizada para almacenar y visualizar los datos de temperatura en tiempo real.</li>
+  </ul>
   
+  <h2>Pasos para Configurar el Sistema de Medición de Temperatura</h2>
+  <ol>
+    <li><strong>Preparar el Material:</strong> Reúne todos los materiales necesarios: ESP32, DHT22, cables, protoboard y una cuenta en Firebase.</li>
+    <li><strong>Conectar el DHT22 al ESP32:</strong>
+      <ul>
+        <li>Conecta el pin VCC del DHT22 al pin de 3.3V del ESP32.</li>
+        <li>Conecta el pin GND del DHT22 al pin GND del ESP32.</li>
+        <li>Conecta el pin DATA del DHT22 a uno de los pines GPIO disponibles en el ESP32 (por ejemplo, GPIO 4).</li>
+      </ul>
+    </li>
+    <li><strong>Montar el Circuito en la Protoboard:</strong>
+      <ul>
+        <li>Coloca el ESP32 y el DHT22 en la protoboard.</li>
+        <li>Utiliza cables para conectar los componentes de acuerdo con los pasos anteriores.</li>
+      </ul>
+    </li>
+    <li><strong>Configurar el ESP32:</strong>
+      <ul>
+        <li>Instala el software de desarrollo adecuado (por ejemplo, Arduino IDE).</li>
+        <li>Configura el entorno de desarrollo para el ESP32.</li>
+        <li>Escribe o carga el código necesario para leer datos del DHT22 y enviar estos datos a Firebase.</li>
+      </ul>
+    </li>
+    <li><strong>Configurar Firebase:</strong>
+      <ul>
+        <li>Crea un proyecto en la plataforma Firebase.</li>
+        <li>Configura la base de datos en tiempo real para almacenar los datos de temperatura.</li>
+        <li>Obtén las credenciales necesarias (API Key, URL de la base de datos) para conectar tu ESP32 con Firebase.</li>
+      </ul>
+    </li>
+    <li><strong>Verificar el Funcionamiento:</strong>
+      <ul>
+        <li>Sube el código al ESP32 y verifica que se conecte correctamente a Wi-Fi.</li>
+        <li>Comprueba en la consola de Firebase que los datos de temperatura se estén enviando y almacenando correctamente.</li>
+      </ul>
+    </li>
+  </ol>
+  
+  <button (click)="navigateHome()" class="btn">Regresar al Home</button>
+</div>
+<br>
+
+

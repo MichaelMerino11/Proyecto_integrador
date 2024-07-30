@@ -1,0 +1,14 @@
+/* footer.component.css */
+  
+  .social-media {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex; /* Flexbox para alinear horizontalmente */
+    flex-wrap: nowrap; /* Evitar que los ítems se envuelvan */
+    overflow-x: auto; /* Agrega una barra de desplazamiento horizontal si es necesario */
+    gap: 15px; /* Espaciado entre ítems */
+  }
+  
+ 
+  

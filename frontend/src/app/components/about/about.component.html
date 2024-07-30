@@ -1,18 +1,33 @@
 <!-- about.component.html -->
 <nav>
-    <div class="nav-wrapper">
-      <a routerLink="/" class="brand-logo"><img src="assets/logo.png" alt="Logo" class="logo"></a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a routerLink="/about">Sobre Nosotros</a></li>
-        <li><a routerLink="/instrumentation">Instrumentación</a></li>
-        <li><a routerLink="/contact">Contacto</a></li>
-        <li><a (click)="logout()"><img src="assets/logout.png" alt="Logout" class="icon"></a></li>
-      </ul>
-    </div>
-  </nav>
-  <div class="container">
-    <h2>Sobre Nosotros</h2>
-    <p>Contenido de Sobre Nosotros...</p>
+  <div class="nav-wrapper">
+    <a routerLink="/" class="brand-logo"><img src="assets/logo.png" alt="Logo" class="logo"></a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a routerLink="/about">Sobre Nosotros</a></li>
+      <li><a routerLink="/instrumentation">Instrumentación</a></li>
+      <li><a routerLink="/contact">Contacto</a></li>
+      <li><a (click)="logout()"><img src="assets/logout.png" alt="Logout" class="icon"></a></li>
+    </ul>
+  </div>
+</nav>
+
+
+<div class="container">
+  <p style="text-align: center; font-size: large;" >Sobre Nosotros</p>
+  <p>En el mundo actual, donde la tecnología y los datos son el corazón de innumerables operaciones empresariales, garantizar la integridad y la seguridad de los centros de datos es fundamental. Aquí es donde entra en juego nuestro sistema de monitoreo de temperatura.</p>
+  
+  <p style="text-align: center; font-size: large;">Quienes somos?</p>
+  <li style="text-align: justify;">Somos un grupo de estudiantes apasionados y dedicados, actualmente cursando nuestra carrera en "Ingeniería en Ciencias de la Computación". Con una sólida formación académica y un entusiasmo por aprender y aplicar nuestros conocimientos, hemos unido nuestras fuerzas para desarrollar un sistema innovador y eficiente que garantice la seguridad térmica de los datacenters.</li>
+
+  <p style="text-align: center; font-size: large;">Qué hacemos</p>
+  <li style="text-align: justify;">Análisis y Reportes: Generamos reportes detallados y análisis históricos para ayudar a entender mejor los patrones de temperatura y optimizar la gestión de la infraestructura.</li>
+  <br>
+  <li style="text-align: justify;">Escalabilidad: Nuestro sistema se adapta a datacenters de todos los tamaños, desde pequeñas instalaciones hasta grandes centros de datos corporativos.</li>
+  
+  <p style="text-align: center; font-size: large;">Contactos</p>
+  <li style="text-align: justify;">Si tienes alguna pregunta o necesitas más información sobre nuestro sistema, encontrarás un apartado en la barra del menú referente a la sección de "contactos" en donde encontrarás todo lo relacionado a los programadores.</li>
+  
+  <div class="row">
     <button (click)="navigateHome()" class="btn">Regresar al Home</button>
   </div>
-  
+</div>
