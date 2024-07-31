@@ -5,6 +5,7 @@ import { Subscription, interval } from 'rxjs';
 import * as XLSX from 'xlsx';
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
+declare var M: any;
 
 interface ChartEntry {
   name: string; // Date
@@ -64,6 +65,12 @@ export class ChartsComponent implements OnInit, OnDestroy {
   limit: number = 200; // Number of records to limit
 
   constructor(private http: HttpClient) {}
+
+  ngAfterViewInit(): void {
+    // Inicializa el Sidenav de Materialize
+    var elems = document.querySelectorAll('.sidenav');
+    M.Sidenav.init(elems);
+  }
 
   ngOnInit(): void {
     // Set default dates

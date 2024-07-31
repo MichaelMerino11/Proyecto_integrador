@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../services/auth.service';
+declare var M: any;
 
 @Component({
   selector: 'app-admin',
@@ -17,6 +18,12 @@ export class AdminComponent implements OnInit {
     private userService: UserService,
     private authService: AuthService
   ) {}
+
+  ngAfterViewInit(): void {
+    // Inicializa el Sidenav de Materialize
+    var elems = document.querySelectorAll('.sidenav');
+    M.Sidenav.init(elems);
+  }
 
   logout() {
     this.authService.logout();

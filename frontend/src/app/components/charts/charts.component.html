@@ -1,15 +1,24 @@
 <!-- contact.component.html -->
 <nav>
-    <div class="nav-wrapper">
-      <a routerLink="/" class="brand-logo"><img src="../../../assets/logo.png" alt="Logo" class="logo"></a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a routerLink="/about">Sobre Nosotros</a></li>
-        <li><a routerLink="/instrumentation">Instrumentación</a></li>
-        <li><a routerLink="/contact">Contacto</a></li>
-       
-      </ul>
-    </div>
-  </nav>
+  <div class="nav-wrapper">
+    <a routerLink="/" class="brand-logo"><img src="../../../assets/logo.png" alt="Logo" class="logo"></a>
+    <!-- Sidenav Trigger for Mobile -->
+    <a href="#" data-target="mobile-menu" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    <!-- Desktop Menu -->
+    <ul id="nav-desktop" class="right hide-on-med-and-down">
+      <li><a routerLink="/about">Sobre Nosotros</a></li>
+      <li><a routerLink="/instrumentation">Instrumentación</a></li>
+      <li><a routerLink="/contact">Contacto</a></li>
+    </ul>
+    <!-- Sidenav Menu for Mobile -->
+    <ul id="mobile-menu" class="sidenav">
+      <li><a routerLink="/about">Sobre Nosotros</a></li>
+      <li><a routerLink="/instrumentation">Instrumentación</a></li>
+      <li><a routerLink="/contact">Contacto</a></li>
+      <!-- Add other mobile menu items here if needed -->
+    </ul>
+  </div>
+</nav>
 <div>
     <button class="waves-effect waves-light btn-small" (click)="showTemperature()">Mostrar Gráfico de Temperatura</button>
     <button class="waves-effect waves-light btn-small" (click)="showHumidity()">Mostrar Gráfico de Humedad</button>

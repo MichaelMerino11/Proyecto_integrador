@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+declare var M: any;
 
 @Component({
   selector: 'app-register',
@@ -14,6 +15,12 @@ export class RegisterComponent {
   error: string = '';
 
   constructor(private authService: AuthService, private router: Router) {}
+
+  ngAfterViewInit(): void {
+    // Inicializa el Sidenav
+    var elems = document.querySelectorAll('.sidenav');
+    M.Sidenav.init(elems);
+  }
 
   register() {
     if (!this.email.endsWith('@ups.edu.ec')) {

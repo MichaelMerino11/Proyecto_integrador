@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
+declare var M: any;
 
 @Component({
   selector: 'app-operator',
@@ -13,6 +14,12 @@ export class OperatorComponent implements OnInit {
   user: any = {};
 
   constructor(private authService: AuthService, private userService: UserService) {}
+
+  ngAfterViewInit(): void {
+    // Inicializa el Sidenav
+    var elems = document.querySelectorAll('.sidenav');
+    M.Sidenav.init(elems);
+  }
 
   logout() {
     this.authService.logout();

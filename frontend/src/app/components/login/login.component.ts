@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+declare var M: any;
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,12 @@ export class LoginComponent {
   error: string = '';
 
   constructor(private authService: AuthService, private router: Router) {}
+
+  ngAfterViewInit(): void {
+    // Inicializa el Sidenav
+    var elems = document.querySelectorAll('.sidenav');
+    M.Sidenav.init(elems);
+  }
 
   login() {
     this.authService.login(this.email, this.password).subscribe(
